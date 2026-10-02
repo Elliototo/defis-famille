@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Défis Famille</title>
+
+  <style>
+    :root {
+      --bg: #f4f4ff;
+      --purple: #5b3cc4;
+      --purple-dark: #452aa0;
+      --card: #ffffff;
+      --text: #222;
+      --muted: #777;
+      --shadow: rgba(0, 0, 0, 0.15);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .boite {
+      width: min(100%, 600px);
+      background: var(--card);
+      padding: 30px 24px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      color: var(--purple);
+    }
+
+    .intro {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    #defi {
+      min-height: 70px;
+      margin: 28px 0 24px;
+      padding: 18px 12px;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: bold;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f7f4ff;
+      border-radius: 12px;
+      border: 1px solid #e7defc;
+    }
+
+    button {
+      background: var(--purple);
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: var(--purple-dark);
+      transform: translateY(-1px);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .petit {
+      margin-top: 22px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="boite">
+    <h1>🎯 Défis Famille</h1>
+
+    <p class="intro">Tente ta chance et découvre ton défi !</p>
+
+    <div id="defi">
+      Clique sur le bouton pour commencer 👇
+    </div>
+
+    <button onclick="genererDefi()">🎲 Générer un défi</button>
+
+    <p class="petit">Amusez-vous en famille !</p>
+  </div>
+
+  <script>
+    const defis = [
+      "Raconte une blague à toute la famille 😂",
+      "Trouve quelque chose de rouge en moins de 20 secondes 🔴",
+      "Dessine un animal en 1 minute 🎨",
+      "Fais deviner un film sans parler 🎬",
+      "Dis 3 choses positives sur ta journée 😊",
+      "Fais 10 sauts sur place 🦘",
+      "Imite un animal et fais-le deviner 🐱",
+      "Trouve un objet qui commence par la lettre B 🔎",
+      "Fais un compliment à quelqu’un de la famille ❤️",
+      "Construis quelque chose avec 5 objets autour de toi 🧱",
+      "Chante une chanson pendant 20 secondes 🎤",
+      "Fais rire quelqu’un de la famille 😂",
+      "Trouve 5 objets de la même couleur 🌈",
+      "Fais une photo de famille originale 📸",
+      "Reste immobile comme une statue pendant 30 secondes 🗿",
+      "Invente un nouveau mot et explique sa définition 🤔",
+      "Fais deviner ton plat préféré sans le nommer 🍕",
+      "Range quelque chose en moins de 2 minutes 🧹",
+      "Donne une anecdote drôle sur ta famille 😄",
+      "Fais un défi choisi par quelqu’un d’autre 🎯"
+    ];
+
+    function genererDefi() {
+      const nombre = Math.floor(Math.random() * defis.length);
+      document.getElementById("defi").textContent = defis[nombre];
+    }
+  </script>
+
+</body>
+</html>
