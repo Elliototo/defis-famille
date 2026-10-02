@@ -7,13 +7,18 @@
 
   <style>
     :root {
-      --bg: #f4f4ff;
+      --bg: #f5f3ff;
+      --bg-strong: #ede7ff;
       --purple: #5b3cc4;
       --purple-dark: #452aa0;
-      --card: #ffffff;
-      --text: #222;
-      --muted: #777;
-      --shadow: rgba(0, 0, 0, 0.15);
+      --purple-soft: #f0ebff;
+      --green: #49b88d;
+      --pink: #ff7bb7;
+      --card: #fff;
+      --text: #1e1b2e;
+      --muted: #6c6984;
+      --shadow: rgba(55, 29, 120, 0.15);
+      --line: #e9e2ff;
     }
 
     * {
@@ -26,119 +31,318 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 32px 18px;
+      background: linear-gradient(135deg, var(--bg) 0%, var(--bg-strong) 100%);
       font-family: Arial, sans-serif;
-      text-align: center;
-      background: var(--bg);
       color: var(--text);
     }
 
-    .boite {
-      width: min(100%, 600px);
-      background: var(--card);
-      padding: 30px 24px;
-      border-radius: 20px;
-      box-shadow: 0 8px 24px var(--shadow);
+    .container {
+      width: min(100%, 720px);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--line);
+      border-radius: 26px;
+      box-shadow: 0 12px 30px var(--shadow);
+      padding: 28px 22px 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .head {
+      text-align: center;
+      margin-bottom: 8px;
     }
 
     h1 {
-      margin: 0 0 8px;
-      font-size: clamp(2rem, 4vw, 2.5rem);
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
       color: var(--purple);
     }
 
     .intro {
-      margin: 0;
+      margin: 10px 0 20px;
+      color: var(--muted);
       font-size: 1.05rem;
     }
 
-    #defi {
-      min-height: 70px;
-      margin: 28px 0 24px;
-      padding: 18px 12px;
-      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-      font-weight: bold;
-      line-height: 1.4;
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--purple);
+      background: white;
+      color: var(--purple);
+      border-radius: 999px;
+      padding: 9px 14px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn.active {
+      background: var(--purple);
+      color: white;
+    }
+
+    .challenge-box {
+      background: linear-gradient(180deg, var(--purple-soft) 0%, white 100%);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      min-height: 120px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f7f4ff;
-      border-radius: 12px;
-      border: 1px solid #e7defc;
+      text-align: center;
+      padding: 20px 18px;
+      margin-bottom: 18px;
+      box-shadow: inset 0 0 0 1px rgba(91, 60, 196, 0.03);
     }
 
-    button {
+    #defi {
+      font-size: clamp(1.2rem, 3vw, 1.7rem);
+      font-weight: 700;
+      line-height: 1.45;
+      color: var(--text);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+
+    .primary, .secondary {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 22px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      font-weight: 700;
+    }
+
+    .primary {
       background: var(--purple);
       color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 1.1rem;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s ease, transform 0.2s ease;
     }
 
-    button:hover {
-      background: var(--purple-dark);
+    .secondary {
+      background: #eef9f3;
+      color: var(--green);
+      border: 1px solid #ccefe0;
+    }
+
+    .primary:hover, .secondary:hover, .filter-btn:hover {
       transform: translateY(-1px);
     }
 
-    button:active {
-      transform: translateY(0);
+    .history {
+      margin-top: 6px;
+      padding-top: 12px;
+      border-top: 1px solid var(--line);
     }
 
-    .petit {
-      margin-top: 22px;
+    .history h2 {
+      font-size: 1rem;
+      margin: 0 0 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      text-align: center;
+    }
+
+    .history-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .history-list li {
+      background: #faf8ff;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 18px;
       color: var(--muted);
       font-size: 0.95rem;
+    }
+
+    @media (max-width: 520px) {
+      .container {
+        padding: 22px 16px 18px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .primary, .secondary {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
-
-  <div class="boite">
-    <h1>🎯 Défis Famille</h1>
-
-    <p class="intro">Tente ta chance et découvre ton défi !</p>
-
-    <div id="defi">
-      Clique sur le bouton pour commencer 👇
+  <div class="container">
+    <div class="head">
+      <h1>🎯 Défis Famille</h1>
+      <p class="intro">Des petits défis simples, drôles et bienveillants pour passer un bon moment ensemble.</p>
     </div>
 
-    <button onclick="genererDefi()">🎲 Générer un défi</button>
+    <div class="filters" aria-label="Choisir une catégorie">
+      <button class="filter-btn active" data-category="tout">Tout</button>
+      <button class="filter-btn" data-category="rires">Rires</button>
+      <button class="filter-btn" data-category="creativite">Créativité</button>
+      <button class="filter-btn" data-category="mouvement">Mouvement</button>
+      <button class="filter-btn" data-category="observation">Observation</button>
+    </div>
 
-    <p class="petit">Amusez-vous en famille !</p>
+    <div class="challenge-box">
+      <div id="defi">Clique sur le bouton pour commencer 👇</div>
+    </div>
+
+    <div class="actions">
+      <button class="primary" onclick="genererDefi()">🎲 Nouveau défi</button>
+      <button class="secondary" onclick="resetDefi()">🔄 Réinitialiser</button>
+    </div>
+
+    <div class="history">
+      <h2>Derniers défis</h2>
+      <ul class="history-list" id="historyList">
+        <li>Le défi apparaît ici.</li>
+      </ul>
+    </div>
+
+    <p class="footer-note">Amusez-vous en famille !</p>
   </div>
 
   <script>
-    const defis = [
-      "Raconte une blague à toute la famille 😂",
-      "Trouve quelque chose de rouge en moins de 20 secondes 🔴",
-      "Dessine un animal en 1 minute 🎨",
-      "Fais deviner un film sans parler 🎬",
-      "Dis 3 choses positives sur ta journée 😊",
-      "Fais 10 sauts sur place 🦘",
-      "Imite un animal et fais-le deviner 🐱",
-      "Trouve un objet qui commence par la lettre B 🔎",
-      "Fais un compliment à quelqu’un de la famille ❤️",
-      "Construis quelque chose avec 5 objets autour de toi 🧱",
-      "Chante une chanson pendant 20 secondes 🎤",
-      "Fais rire quelqu’un de la famille 😂",
-      "Trouve 5 objets de la même couleur 🌈",
-      "Fais une photo de famille originale 📸",
-      "Reste immobile comme une statue pendant 30 secondes 🗿",
-      "Invente un nouveau mot et explique sa définition 🤔",
-      "Fais deviner ton plat préféré sans le nommer 🍕",
-      "Range quelque chose en moins de 2 minutes 🧹",
-      "Donne une anecdote drôle sur ta famille 😄",
-      "Fais un défi choisi par quelqu’un d’autre 🎯"
-    ];
+    const defisParCategorie = {
+      tout: [
+        "Raconte une blague à toute la famille 😂",
+        "Trouve quelque chose de rouge en moins de 20 secondes 🔴",
+        "Dessine un animal en 1 minute 🎨",
+        "Fais deviner un film sans parler 🎬",
+        "Dis 3 choses positives sur ta journée 😊",
+        "Fais 10 sauts sur place 🦘",
+        "Imite un animal et fais-le deviner 🐱",
+        "Trouve un objet qui commence par la lettre B 🔎",
+        "Fais un compliment à quelqu’un de la famille ❤️",
+        "Construis quelque chose avec 5 objets autour de toi 🧱",
+        "Chante une chanson pendant 20 secondes 🎤",
+        "Fais rire quelqu’un de la famille 😂",
+        "Trouve 5 objets de la même couleur 🌈",
+        "Fais une photo de famille originale 📸",
+        "Reste immobile comme une statue pendant 30 secondes 🗿",
+        "Invente un nouveau mot et explique sa définition 🤔",
+        "Fais deviner ton plat préféré sans le nommer 🍕",
+        "Range quelque chose en moins de 2 minutes 🧹",
+        "Donne une anecdote drôle sur ta famille 😄",
+        "Fais un défi choisi par quelqu’un d’autre 🎯",
+        "Trouve un objet en forme de cercle dans la pièce 🔵",
+        "Fais une pose de yoga de 15 secondes 🧘",
+        "Invente une petite danse de 10 secondes 💃",
+        "Trouve 3 objets qui commencent par la lettre C 🔤",
+        "Fais un sourire à quelqu’un puis demande-lui de sourire en retour 😄"
+      ],
+      rires: [
+        "Raconte une blague à toute la famille 😂",
+        "Fais rire quelqu’un de la famille 😂",
+        "Imite un animal et fais-le deviner 🐱",
+        "Donne une anecdote drôle sur ta famille 😄",
+        "Fais un défi choisi par quelqu’un d’autre 🎯",
+        "Fais un petit sketch de 15 secondes 🎭"
+      ],
+      creativite: [
+        "Dessine un animal en 1 minute 🎨",
+        "Construis quelque chose avec 5 objets autour de toi 🧱",
+        "Invente un nouveau mot et explique sa définition 🤔",
+        "Fais une photo de famille originale 📸",
+        "Crée une histoire avec 3 mots tirés au sort ✍️",
+        "Dessine le meilleur château de cartes possible 🏰"
+      ],
+      mouvement: [
+        "Fais 10 sauts sur place 🦘",
+        "Reste immobile comme une statue pendant 30 secondes 🗿",
+        "Fais une pose de yoga de 15 secondes 🧘",
+        "Invente une petite danse de 10 secondes 💃",
+        "Fais un sprint de 10 secondes jusqu’au mur 🏃",
+        "Fais 20 petits pas de pingouin 🐧"
+      ],
+      observation: [
+        "Trouve quelque chose de rouge en moins de 20 secondes 🔴",
+        "Trouve un objet qui commence par la lettre B 🔎",
+        "Trouve 5 objets de la même couleur 🌈",
+        "Trouve un objet en forme de cercle dans la pièce 🔵",
+        "Trouve 3 objets qui commencent par la lettre C 🔤",
+        "Compte le nombre de chaises dans la pièce 🪑"
+      ]
+    };
+
+    let categorieActive = "tout";
+    let historique = [];
+
+    function pickChallenge() {
+      const liste = defisParCategorie[categorieActive] || defisParCategorie.tout;
+      return liste[Math.floor(Math.random() * liste.length)];
+    }
+
+    function afficherHistorique() {
+      const list = document.getElementById("historyList");
+      list.innerHTML = "";
+
+      if (historique.length === 0) {
+        list.innerHTML = "<li>Le défi apparaît ici.</li>";
+        return;
+      }
+
+      historique.slice(0, 4).forEach((item) => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+      });
+    }
 
     function genererDefi() {
-      const nombre = Math.floor(Math.random() * defis.length);
-      document.getElementById("defi").textContent = defis[nombre];
-    }
-  </script>
+      const defi = pickChallenge();
+      document.getElementById("defi").textContent = defi;
 
+      historique.unshift(defi);
+      historique = historique.slice(0, 4);
+      afficherHistorique();
+    }
+
+    function resetDefi() {
+      document.getElementById("defi").textContent = "Clique sur le bouton pour commencer 👇";
+      historique = [];
+      afficherHistorique();
+    }
+
+    document.querySelectorAll(".filter-btn").forEach((button) => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn").forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        categorieActive = button.dataset.category;
+        genererDefi();
+      });
+    });
+
+    afficherHistorique();
+  </script>
 </body>
 </html>
